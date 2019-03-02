@@ -12,9 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('front.index');
 });
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+
+    Route::get('/', 'HomeController@index')->name('admin.index');
+
+    Route::resource('/posts', 'PostController');
+    
+});
+

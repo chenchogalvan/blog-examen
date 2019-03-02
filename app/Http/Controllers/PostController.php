@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -14,7 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $post = Post::with('User')->where('user_id', Auth::user()->id)->get();
+        return view('admin.post_index', compact('post'));
     }
 
     /**
@@ -24,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.post_create');
     }
 
     /**
@@ -35,7 +39,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //creamos el slug 
+        $request->request->set('slug', Str::slug($request->get('title')));
+
+        //Creamos el post y cargamos todos los campus menos la imagen para que no guarde el archivo temp
+        $post = Post::create($request->only(['user_id', 'title', 'body', 'slug']));
+
+        //Guardamos la imagen en Sotrage/public/blog y guardamos la url en la base de datos
+        $post->cover_path =  $request->file('cover_path')->store('public/blog');
+        $post->save();
+
+        return redirect()->route('posts.index')->with('success', 'El post con el titulo "'.$request->get('title').'" se ha guardado con exito');
     }
 
     /**

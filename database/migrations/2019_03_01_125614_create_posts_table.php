@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('user_id');
             $table->string('slug')->unique();
+            $table->string('cover_path');
             $table->string('title');
             $table->text('body');
             $table->timestamps();
