@@ -11,18 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('front.index');
-});
+Route::get('/', 'PagesController@index')->name('index');
+Route::get('/publicación/{post}', 'PagesController@show')->name('index.show');
 
 
 Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
-    Route::get('/', 'HomeController@index')->name('admin.index');
+    Route::get('/', 'HomeController@indexAdmin')->name('admin.index');
 
     Route::resource('/posts', 'PostController');
+    Route::resource('/tags', 'TagController');
     
 });
 

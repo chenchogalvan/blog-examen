@@ -26,32 +26,49 @@
 
             <div class="postcontent nobottommargin col_last clearfix">
                 <div id="posts" class="post-timeline clearfix">
-                    <div class="timeline-border"></div>
+                        <div class="timeline-border"></div>
+
+                    @forelse ($posts as $post)
+                    
 
                     <div class="entry clearfix">
                         <div class="entry-timeline">
-                            10<span>Feb</span>
+                            {{ $post->created_at->format('d') }}<span>{{ $post->created_at->format('M') }}</span>
                             <div class="timeline-divider"></div>
                         </div>
                         <div class="entry-image">
-                            <a href="/site/images/3.jpg" data-lightbox="image"><img class="image_fade" src="/site/images/3.jpg" alt="Standard Post with Image"></a>
+                            <a href="{{ Storage::url($post->cover_path) }}" data-lightbox="image"><img class="image_fade" src="{{ Storage::url($post->cover_path) }}" alt="Standard Post with Image"></a>
                         </div>
                         <div class="entry-title">
-                            <h2><a href="blog-single.html">This is a Standard post with a Preview Image</a></h2>
+                            <h2><a href="{{ route('index.show', $post) }}">{{ $post->title }}</a></h2>
                         </div>
                         <ul class="entry-meta clearfix">
-                            <li><a href="#"><i class="icon-user"></i> admin</a></li>
-                            <li><i class="icon-folder-open"></i> 
-                                <a href="#">General</a>, <a href="#">Media</a>
+                            <li><a href="#"><i class="icon-user"></i> {{  $post->user->name.' '.  $post->user->last_name }}</a></li>
+                            <li><i class="fa fa-hashtag"></i> 
+                                @foreach ($post->tags as $tag)
+                                    {{ $loop->first ? '' : '|' }}
+                                    <a href="#">{{ $tag->name }}</a>
+                                @endforeach
+                                
                             </li>
                         </ul>
                         <div class="entry-content">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, asperiores quod est tenetur in. Eligendi, deserunt, blanditiis est quisquam doloribus voluptate id aperiam ea ipsum magni aut perspiciatis rem voluptatibus officia eos rerum deleniti quae nihil facilis repellat atque vitae voluptatem libero at eveniet veritatis ab facere.</p>
-                            <a href="#" class="button button-rounded button-reveal button-large button-border tright"><i class="icon-file"></i><span>Leer más</span></a>
+                            {!! str_limit($post->body, 100) !!}
+                            <a href="{{ route('index.show', $post ) }}" class="button button-rounded button-reveal button-large button-border tright mt-30"><i class="icon-file"></i><span>Leer más</span></a>
                         </div>
                     </div>
+                        
+                    @empty
+                        
+                    @endforelse
+                    
+
+                    
+
+                    
                 </div>
             </div>
+            
 
             <!-- Sidebar
             ============================================= -->
@@ -73,16 +90,11 @@
 
                         <h4>Tag Cloud</h4>
                         <div class="tagcloud">
-                            <a href="#">general</a>
-                            <a href="#">videos</a>
-                            <a href="#">music</a>
-                            <a href="#">media</a>
-                            <a href="#">photography</a>
-                            <a href="#">parallax</a>
-                            <a href="#">ecommerce</a>
-                            <a href="#">terms</a>
-                            <a href="#">coupons</a>
-                            <a href="#">modern</a>
+                            @forelse ($tags as $tag)
+                                <a href="#">{{ $tag->name }}</a>
+                            @empty
+                                
+                            @endforelse
                         </div>
 
                     </div>

@@ -16,6 +16,8 @@
 
 <!-- css -->
 <link rel="stylesheet" type="text/css" href="/admin-site/css/style.css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
  
 </head>
 
@@ -39,8 +41,8 @@
 <nav class="admin-header navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
   <!-- logo -->
   <div class="text-left navbar-brand-wrapper">
-    <a class="navbar-brand brand-logo" href="index.html"><img src="/admin-site/images/logo-dark.png" alt="" ></a>
-    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/admin-site/images/logo-icon-dark.png" alt=""></a>
+    <a class="navbar-brand brand-logo" href="{{ route('index') }}"><img src="/admin-site/images/logo-dark.png" alt="" ></a>
+    <a class="navbar-brand brand-logo-mini" href="{{ route('index') }}"><img src="/admin-site/images/logo-icon-dark.png" alt=""></a>
   </div>
   <!-- Top bar left -->
   <ul class="nav navbar-nav mr-auto">
@@ -93,18 +95,28 @@
         <ul class="nav navbar-nav side-menu" id="sidebarnav">
         <!-- menu item Dashboard-->
             <li>
-                <a href="/">
+                <a href="{{ route('admin.index') }}">
                     <div class="pull-left"><i class="ti-home"></i><span class="right-nav-text">Dashboard</span></div><div class="clearfix"></div>
                 </a>
             </li>
             <li>
-                <a href="javascript:void(0);" data-toggle="collapse" data-target="#post">
-                    <div class="pull-left"><i class="ti-file"></i><span class="right-nav-text">Post</span></div>
+                <a href="javascript:void(0);" data-toggle="collapse" data-target="#posts">
+                    <div class="pull-left"><i class="ti-file"></i><span class="right-nav-text">Publicaciones</span></div>
                     <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
                 </a>
-                <ul id="post" class="collapse" data-parent="#sidebarnav">
-                    <li> <a href="{{ route('posts.create') }}">Crear nuevo post</a> </li>
-                    <li> <a href="{{ route('posts.index') }}">Ver lista de post</a> </li>
+                <ul id="posts" class="collapse" data-parent="#sidebarnav">
+                    <li> <a href="{{ route('posts.index') }}">Ver lista de publicaciones</a> </li>
+                    <li> <a href="{{ route('posts.create') }}">Crear nueva publicación</a> </li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0);" data-toggle="collapse" data-target="#tags">
+                    <div class="pull-left"><i class="fa fa-hashtag"></i><span class="right-nav-text">Etiquetas</span></div>
+                    <div class="pull-right"><i class="ti-plus"></i></div><div class="clearfix"></div>
+                </a>
+                <ul id="tags" class="collapse" data-parent="#sidebarnav">
+                    <li> <a href="{{ route('tags.index') }}">Ver lista de etiquetas</a> </li>
+                    <li> <a href="{{ route('tags.create') }}">Crear nueva etiqueta</a> </li>
                 </ul>
             </li>
         </ul>
@@ -168,6 +180,8 @@ Content -->
 
 <!-- lobilist -->
 <script src="/admin-site/js/lobilist.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
  
 <!-- custom -->
 <script src="/admin-site/js/custom.js"></script>
