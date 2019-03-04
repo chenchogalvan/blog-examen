@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/', 'PagesController@index')->name('index');
-Route::get('/publicación/{post}', 'PagesController@show')->name('index.show');
+Route::get('/', 'HomeController@index')->name('index');
+Route::get('/publicación/{post}', 'HomeController@show')->name('index.show');
 
 
 Auth::routes();
