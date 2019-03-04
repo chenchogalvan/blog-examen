@@ -37,7 +37,7 @@
                             </div>
                             <div class="float-right text-right">
                                 <h4 class="text-white">{{ count($posts) }}</h4>
-                                <p class="card-text text-white">Publicaciones creadas por el usuario</p>
+                                <p class="card-text text-white">Publicaciones en el sistema</p>
                             </div>
                         </div>
                     </div>
